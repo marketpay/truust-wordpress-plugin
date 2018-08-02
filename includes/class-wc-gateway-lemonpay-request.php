@@ -44,12 +44,9 @@ class WC_Gateway_Lemonpay_Request {
       "amount" => $order->get_total(),
       "trustee_confirmed_url" => $this->gateway->get_return_url($order).'&type=trustee&status=confirmation',
       "trustee_denied_url" => $this->gateway->get_return_url($order).'&type=trustee&status=denial', // Context::getContext()->link->getModuleLink($this->module->name, 'validation', array("status" => "ko", "type" => "client"), true),
-      "settlor_confirmed_url" => $this->gateway->get_return_url($order).'&type=settlor&status=confirmation', // Context::getContext()->link->getModuleLink($this->module->name, 'validation', array("status" => "ok", "id_cart" => $cart->id, "key"=> $customer->secure_key, "type" => "vendor"), true),
-      "settlor_denied_url" => $this->gateway->get_return_url($order).'&type=settlor&status=denial', // Context::getContext()->link->getModuleLink($this->module->name, 'validation', array("status" => "ko", "type" => "client"), true)
+      "settlor_confirmed_url" => $this->gateway->get_option(WC_Gateway_Lemonpay::SETTLOR_CONFIRMED_URL),
+      "settlor_denied_url" => $this->gateway->get_option(WC_Gateway_Lemonpay::SETTLOR_DENIED_URL), // Context::getContext()->link->getModuleLink($this->module->name, 'validation', array("status" => "ko", "type" => "client"), true)
       "source" => $this->gateway->get_option(WC_Gateway_Lemonpay::API_SOURCE),
-      "fee_percent" => $order->get_total_tax()*100/$order->get_total(),
-      "fee_amount" => $order->get_total_tax(),
-      "fee_shipping" => $order->get_shipping_tax(),
       "currency" => $order->get_currency(),
       "tag" => $order->get_id()
     );
