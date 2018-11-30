@@ -50,8 +50,8 @@ class WC_Gateway_Lemonpay extends WC_Payment_Gateway {
 		$this->id = 'lemonpay';
 		$this->icon = ''; // TODO
 		$this->has_fields = true;
-		$this->method_title = __( 'LemonPay', LEMONPAY_TEXT_DOMAIN );
-		$this->method_description = __('La primera App para comprar y vender sin riesgos entre particulares', LEMONPAY_TEXT_DOMAIN);
+		$this->method_title = __( 'Truust', LEMONPAY_TEXT_DOMAIN );
+		$this->method_description = __('Your all-in-one smart payments platform', LEMONPAY_TEXT_DOMAIN);
 
 		// Load the settings.
 		$this->init_form_fields();

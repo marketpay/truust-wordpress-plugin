@@ -18,13 +18,13 @@ return array(
     'default'     => 'pre',
     'options'     => array(
       'pro' => 'Production',
-      'pre' => 'Preproduction'
+      'pre' => 'Sandbox'
     )
   ),
   WC_Gateway_Lemonpay::API_EMAIL => array(
     'title'       => __( 'Email', LEMONPAY_TEXT_DOMAIN),
     'type'        => 'text',
-    'description' => 'https://admin.lemonpay.me/managers',
+    'description' => 'https://dashboard.truust.io/managers',
     'desc_tip'    => true
   ),
   WC_Gateway_Lemonpay::API_PASSWORD => array(
@@ -32,9 +32,9 @@ return array(
     'type'        => 'password'
   ),
   WC_Gateway_Lemonpay::API_SOURCE => array(
-    'title'       => __( 'Source name', LEMONPAY_TEXT_DOMAIN),
+    'title'       => __( 'Public Key', LEMONPAY_TEXT_DOMAIN),
     'type'        => 'text',
-    'description' => 'https://admin.lemonpay.me/sources',
+    'description' => 'https://dashboard.truust.io/sources',
     'desc_tip'    => true
   ),
   'payment_configuration' => array(
@@ -44,17 +44,17 @@ return array(
   WC_Gateway_Lemonpay::TITLE => array(
 		'title'       => __( 'Title', 'woocommerce' ),
 		'type'        => 'text',
-		'default'     => __( 'LemonPay', LEMONPAY_TEXT_DOMAIN )
+		'default'     => __( 'Truust', LEMONPAY_TEXT_DOMAIN )
 	),
 	WC_Gateway_Lemonpay::DESCRIPTION => array(
 		'title'       => __( 'Description', 'woocommerce' ),
 		'type'        => 'text',
-		'default'     => __( 'You will be redirect to LemonPay payment page after you submit order.', LEMONPAY_TEXT_DOMAIN )
+		'default'     => __( 'You will be redirect to Truust payment page after you submit order.', LEMONPAY_TEXT_DOMAIN )
 	),
   'seller_configuration' => array(
     'title'       => __( 'Seller information', LEMONPAY_TEXT_DOMAIN ),
     'type'        => 'title',
-    'description' => 'If you want have more than one seller, contact with us: info@volcanicinternet.com',
+    'description' => 'If you want have more than one seller, contact with us: hello@truust.io',
 		'desc_tip'    => true
   ),
 	WC_Gateway_Lemonpay::SETTLOR_EMAIL => array(

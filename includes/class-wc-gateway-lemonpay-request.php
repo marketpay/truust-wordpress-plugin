@@ -80,9 +80,9 @@ class WC_Gateway_Lemonpay_Request {
     curl_setopt($curl, CURLOPT_FRESH_CONNECT, true);
 
     if ($environment == 'pro') {
-      curl_setopt($curl, CURLOPT_URL, "https://api.lemonpay.me/1.0/express");
+      curl_setopt($curl, CURLOPT_URL, "https://api.truust.io/1.0/express");
     } else {
-      curl_setopt($curl, CURLOPT_URL, "https://pre-api.lemonpay.me/1.0/express");
+      curl_setopt($curl, CURLOPT_URL, "https://api-sandbox.truust.io/1.0/express");
     }
 
     curl_setopt($curl, CURLOPT_HEADER, false);
@@ -92,7 +92,7 @@ class WC_Gateway_Lemonpay_Request {
     curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
 
     curl_setopt($curl, CURLOPT_POST, true);
-    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Accept: application/json'));
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
@@ -131,9 +131,9 @@ class WC_Gateway_Lemonpay_Request {
     curl_setopt($curl, CURLOPT_FRESH_CONNECT, true);
 
     if ($environment == 'pro') {
-      curl_setopt($curl, CURLOPT_URL, "https://api.lemonpay.me/1.0/express/address");
+      curl_setopt($curl, CURLOPT_URL, "https://api.truust.io/1.0/express/address");
     } else {
-      curl_setopt($curl, CURLOPT_URL, "https://pre-api.lemonpay.me/1.0/express/address");
+      curl_setopt($curl, CURLOPT_URL, "https://api-sandbox.truust.io/1.0/express/address");
     }
 
     curl_setopt($curl, CURLOPT_HEADER, false);
@@ -143,7 +143,7 @@ class WC_Gateway_Lemonpay_Request {
     curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($address));
 
     curl_setopt($curl, CURLOPT_POST, true);
-    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Accept: application/json'));
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);

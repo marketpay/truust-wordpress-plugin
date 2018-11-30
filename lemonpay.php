@@ -1,10 +1,10 @@
 <?php
 include( 'classes/abstract/prefix.php' );
 /*
-Plugin Name: LemonPay
-Plugin URI: https://www.lemonpay.me
-Description: La primera App para comprar y vender sin riesgos entre particulares
-Version: 1.0.0
+Plugin Name: Truust
+Plugin URI: https://truust.io
+Description: Your all-in-one smart payments platform
+Version: 2.0.0
 Author: Xavi Toro <xavi@volcanicinternet.com>
 Author URI: http://www.volcanicinternet.com
 License: GPL3
@@ -19,8 +19,8 @@ final class Lemonpay {
 	*/
 	protected static $_instance = null;
 
-	protected $name = "La primera App para comprar y vender sin riesgos entre particulares";
-	protected $slug = 'lemonpay';
+	protected $name = "Your all-in-one smart payments platform";
+	protected $slug = 'truust';
 
 	/**
 	* Pointer to gateway making the request.
@@ -28,7 +28,7 @@ final class Lemonpay {
 	*/
 	protected $gateway;
 
-	const DB_VERSION = '1.0.0';
+	const DB_VERSION = '2.0.0';
 
 	/**
 	* Constructor
@@ -84,7 +84,7 @@ final class Lemonpay {
 	* Add menu Lemonpay
 	*/
 	public function add_admin_menu(){
-		add_menu_page( __( 'Lemonpay', LEMONPAY_TEXT_DOMAIN ),__( 'Lemonpay', LEMONPAY_TEXT_DOMAIN ), 'manage_product_terms', $this->slug. 'configuration', null, null, '58' );
+		add_menu_page( __( 'Truust', LEMONPAY_TEXT_DOMAIN ),__( 'Truust', LEMONPAY_TEXT_DOMAIN ), 'manage_product_terms', $this->slug. 'configuration', null, null, '58' );
 		add_submenu_page($this->slug, __( 'Configuration ', LEMONPAY_TEXT_DOMAIN ), __( 'Configuration ', LEMONPAY_TEXT_DOMAIN ), 'manage_product_terms', $this->slug . 'configuration', array($this, 'redirect_configuration'));
 	}
 
