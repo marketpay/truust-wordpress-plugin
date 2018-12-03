@@ -92,7 +92,7 @@ class WC_Gateway_Lemonpay_Request {
     curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
 
     curl_setopt($curl, CURLOPT_POST, true);
-    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Accept: application/json'));
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Accept: application/json'));
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
@@ -143,7 +143,7 @@ class WC_Gateway_Lemonpay_Request {
     curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($address));
 
     curl_setopt($curl, CURLOPT_POST, true);
-    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Accept: application/json'));
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Accept: application/json'));
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);

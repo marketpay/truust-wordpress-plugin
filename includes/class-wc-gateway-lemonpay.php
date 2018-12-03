@@ -93,7 +93,7 @@ class WC_Gateway_Lemonpay extends WC_Payment_Gateway {
 	public function process_payment( $order_id ) {
 		include_once( 'class-wc-gateway-lemonpay-request.php' );
 
-		$order          = $this->get_order($order_id);
+		$order      = $this->get_order($order_id);
 		$lp_request = new WC_Gateway_Lemonpay_Request( $this );
 
 		return array(
