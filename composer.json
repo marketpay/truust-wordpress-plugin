@@ -1,0 +1,24 @@
+{
+	"name": "truust/lemonpay",
+	"description": "Your smart payments platform",
+	"type": "wordpress-plugin",
+	"version": "2.0.0",
+	"require": {
+		"php": ">=7.2.0",
+		"illuminate/container": "^7.22",
+		"illuminate/config": "^7.22",
+		"symfony/var-dumper": "^5.1"
+	},
+	"authors": [{
+		"name": "Richard Stovall",
+		"email": "rs@codeydevelopment.com"
+	}],
+	"autoload": {
+		"psr-4": {
+			"Truust\\": "src/"
+		},
+		"files": [
+			"helpers.php"
+		]
+	}
+}
