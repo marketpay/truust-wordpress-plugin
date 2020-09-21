@@ -17,8 +17,8 @@ class WC_Gateway_Lemonpay extends \WC_Payment_Gateway
 		
 		config()->set('api_key', $this->settings['api_key']);
 		config()->set('api_url', $this->base());
-		config()->set('seller_confirmed_url', $this->settings['seller_confirmed_url']);
-		config()->set('seller_denied_url', $this->settings['seller_denied_url']);
+		config()->set('buyer_confirmed_url', $this->settings['buyer_confirmed_url']);
+		config()->set('buyer_denied_url', $this->settings['buyer_denied_url']);
 
 		$this->title = __(config('name'), config('text-domain'));
 		$this->description = __($this->settings['description'], config('text-domain'));
@@ -68,12 +68,12 @@ class WC_Gateway_Lemonpay extends \WC_Payment_Gateway
 				'title' => __('Phone', config('text-domain')),
 				'type' => 'text',
 			],
-			'seller_confirmed_url' => [
-				'title' => __('Seller Confirmed URL', config('text-domain')),
+			'buyer_confirmed_url' => [
+				'title' => __('Buyer Confirmed URL', config('text-domain')),
 				'type' => 'text',
 			],
-			'seller_denied_url' => [
-				'title' => __('Seller Denied URL', config('text-domain')),
+			'buyer_denied_url' => [
+				'title' => __('Buyer Denied URL', config('text-domain')),
 				'type' => 'text',
 			],
 		];
@@ -82,19 +82,40 @@ class WC_Gateway_Lemonpay extends \WC_Payment_Gateway
 	public function process_payment($order_id)
 	{
 		$order = new \WC_Order($order_id);
+		$cart = new \WC_Cart();
 
-		$response = truust('request')->send($order);
+		$data = truust('request')->send($order);
 
-		if ($response) {
+		if ($data) {
+			$order->payment_complete();
+			$this->insert_settlor_order($data['order_id'], $data['order_name'], $data['buyer_link']);
+			$cart->empty_cart();
+
 			return [
 				'result' => 'success',
-				'redirect' => $response
+				'redirect' => $data['redirect']
 			];
 		}
+
+		$order->update_status('failed', __('Payment failed', config('text-domain')));
 
 		return [
 			'result' => 'error',
 		];
+	}
+
+	private function insert_settlor_order($order_id, $name, $link)
+	{
+		global $wpdb;
+
+		$table = $wpdb->prefix . 'lp_settlor_order';
+		$wpdb->insert($table, [
+			'order_id' => $order_id,
+			'settlor_shortlink' => $link,
+			'products_name' => $name,
+		]);
+
+		$wpdb->insert_id;
 	}
 
 	// ---------- utilities ---------- //

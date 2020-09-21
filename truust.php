@@ -25,8 +25,6 @@ if ($lemonpay->activation_check(__FILE__)) {
 	add_filter('woocommerce_payment_gateways', [$lemonpay, 'add_gateway']);
 	add_action('admin_menu', [$lemonpay, 'add_admin_menu'], 57);
 	add_action('admin_enqueue_scripts', [$lemonpay, 'enqueue_styles']);
-	add_action('parse_request', [$lemonpay, 'response_payment'], 0);
-	add_action('woocommerce_email_before_order_table', [$lemonpay, 'add_accept_order'], 11, 4);
 
 	$lemonpay->load_plugin_textdomain();
 }

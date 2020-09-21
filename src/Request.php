@@ -34,8 +34,8 @@ class Request
 				'name' => mb_strimwidth($name, 0, 120),
 				'value' => $order->get_total(),
 				'tag' => $order->get_id(),
-				'seller_confirmed_url' => config('seller_confirmed_url'),
-				'seller_denied_url' => config('seller_denied_url'),
+				'buyer_confirmed_url' => config('buyer_confirmed_url'),
+				'buyer_denied_url' => config('buyer_denied_url'),
 			],
 			CURLOPT_HTTPHEADER => [
 				'Accept: application/json',
@@ -50,28 +50,55 @@ class Request
 		curl_close($curl);
 
 		if (isset($response['data'])) {
-			$data = $response['data'];
+			$order->update_status('pending', __($response['status_nicename'], config('text-domain')));
 
-			$this->insert_settlor_order($data['id'], $data['name'], $data['buyer_link']);
-
-			return $response['data']['buyer_link'];
+			return $this->create_payin($response['data']);
 		}
 
 		return false;
 	}
 
-	private function insert_settlor_order($order_id, $name, $link)
+	private function create_payin($data)
 	{
-		global $wpdb;
+		$curl = curl_init();
 
-		$table = $wpdb->prefix . 'lp_settlor_order';
-		$wpdb->insert($table, [
-			'order_id' => $order_id,
-			'settlor_shortlink' => $link,
-			'products_name' => $name,
-		]);
+		curl_setopt_array($curl, array(
+			CURLOPT_URL => config('api_url') . '/2.0/payins',
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_ENCODING => "",
+			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_TIMEOUT => 0,
+			CURLOPT_FOLLOWLOCATION => true,
+			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			CURLOPT_CUSTOMREQUEST => 'POST',
+			CURLOPT_POSTFIELDS => [
+				'order_id' => $data['id'],
+				'type' => 'REDSYS_V2'
+			],
+			CURLOPT_HTTPHEADER => [
+				'Accept: application/json',
+				'Authorization: Bearer ' . config('api_key'),
+			],
+		));
 
-		$wpdb->insert_id;
+		$response = curl_exec($curl);
+
+		$response = curl_exec($curl);
+		$response = $this->remove_utf8_bom($response);
+		$response = json_decode($response, true);
+		
+		curl_close($curl);
+
+		if (isset($response['data']) && isset($response['data']['direct_link'])) {
+			return [
+				'order_id' => $data['id'],
+				'order_name' => $data['name'],
+				'buyer_link' => $data['buyer_link'],
+				'redirect' => $response['data']['direct_link'],
+			];
+		}
+
+		return false;
 	}
 
 	private function remove_utf8_bom($text)
