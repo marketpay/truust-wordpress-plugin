@@ -98,6 +98,35 @@ final class Lemonpay extends Container
 		load_plugin_textdomain(config('text-domain'), false, dirname(plugin_basename(__FILE__)) . '/languages/');
 	}
 
+	// payment response
+	public function handle_payment_response()
+	{
+		// handle payment failed
+		if (isset($_GET['key']) && isset($_GET['status'])) {
+			$order = new \WC_Order(wc_get_order_id_by_order_key($_GET['key']));
+
+			if ($order) {
+				switch ($_GET['status']) {
+					case 'failed':
+						wc_add_notice(__('Payment failed.', config('text-domain')), 'error');
+						$order->update_status('failed', __('Payment failed', config('text-domain')));
+						break;
+					default:
+						break;
+				}
+			}
+		}
+
+		// handle payment succeeded
+		if (isset($_GET['key']) && isset($_GET['order-received'])) {
+			$order = new \WC_Order(wc_get_order_id_by_order_key($_GET['key']));
+
+			if ($order) {
+				$order->payment_complete();
+			}
+		}
+	}
+
 	// ---------- activation ---------- //
 
 	public function activate()

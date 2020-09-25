@@ -14,11 +14,11 @@ class WC_Gateway_Lemonpay extends \WC_Payment_Gateway
 
 		$this->init_settings();
 		$this->init_form_fields();
-		
+
 		config()->set('api_key', $this->settings['api_key']);
 		config()->set('api_url', $this->base());
-		config()->set('buyer_confirmed_url', $this->settings['buyer_confirmed_url']);
-		config()->set('buyer_denied_url', $this->settings['buyer_denied_url']);
+		config()->set('seller_confirmed_url', $this->settings['seller_confirmed_url']);
+		config()->set('seller_denied_url', $this->settings['seller_denied_url']);
 
 		$this->title = __(config('name'), config('text-domain'));
 		$this->description = __($this->settings['description'], config('text-domain'));
@@ -29,7 +29,7 @@ class WC_Gateway_Lemonpay extends \WC_Payment_Gateway
 	public function init_form_fields()
 	{
 		$this->form_fields = [
-			
+
 			// ---------- api credentials ---------- //
 			'credentials_section_heading' => [
 				'title' => __('Truust API Credentials', config('text-domain')),
@@ -68,12 +68,12 @@ class WC_Gateway_Lemonpay extends \WC_Payment_Gateway
 				'title' => __('Phone', config('text-domain')),
 				'type' => 'text',
 			],
-			'buyer_confirmed_url' => [
-				'title' => __('Buyer Confirmed URL', config('text-domain')),
+			'seller_confirmed_url' => [
+				'title' => __('Seller Confirmed URL', config('text-domain')),
 				'type' => 'text',
 			],
-			'buyer_denied_url' => [
-				'title' => __('Buyer Denied URL', config('text-domain')),
+			'seller_denied_url' => [
+				'title' => __('Seller Denied URL', config('text-domain')),
 				'type' => 'text',
 			],
 		];
@@ -82,26 +82,19 @@ class WC_Gateway_Lemonpay extends \WC_Payment_Gateway
 	public function process_payment($order_id)
 	{
 		$order = new \WC_Order($order_id);
-		$cart = new \WC_Cart();
 
 		$data = truust('request')->send($order);
 
 		if ($data) {
-			$order->payment_complete();
-			$this->insert_settlor_order($data['order_id'], $data['order_name'], $data['buyer_link']);
-			$cart->empty_cart();
-
 			return [
 				'result' => 'success',
 				'redirect' => $data['redirect']
 			];
+		} else {
+			return [
+				'result' => 'error',
+			];
 		}
-
-		$order->update_status('failed', __('Payment failed', config('text-domain')));
-
-		return [
-			'result' => 'error',
-		];
 	}
 
 	private function insert_settlor_order($order_id, $name, $link)
