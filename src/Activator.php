@@ -11,11 +11,12 @@ class Activator
 		$charset_collate = $wpdb->get_charset_collate();
 
 		$sql = [];
-		$sql[] = 'CREATE TABLE IF NOT EXISTS `' . $wpdb->prefix . 'lp_settlor_order` (
+		$sql[] = 'CREATE TABLE IF NOT EXISTS `' . $wpdb->prefix . 'truust_orders` (
 			`id` int(11) NOT NULL AUTO_INCREMENT,
 			`order_id` int(11) NOT NULL,
+			`truust_order_id` int(11) NOT NULL,
 			`products_name` varchar(256) NOT NULL,
-			`settlor_shortlink` varchar(256) NOT NULL,
+			`shortlink` varchar(256) NOT NULL,
 			PRIMARY KEY  (`id`)
 		) ENGINE=InnoDB ' . $charset_collate . ';';
 

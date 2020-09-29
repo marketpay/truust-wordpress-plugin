@@ -102,7 +102,7 @@ class Request
 
 		if (isset($response['data']) && isset($response['data']['direct_link'])) {
 			return [
-				'order_id' => $data['id'],
+				'truust_order_id' => $data['id'],
 				'order_name' => $data['name'],
 				'buyer_link' => $data['buyer_link'],
 				'redirect' => $response['data']['direct_link'],

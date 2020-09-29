@@ -109,6 +109,8 @@ class WC_Gateway_Truust extends \WC_Payment_Gateway
 		$data = truust('request')->send($order);
 
 		if ($data) {
+			$this->store_order($order->get_id(), $data['truust_order_id'], $data['order_name'], $data['buyer_link']);
+
 			return [
 				'result' => 'success',
 				'redirect' => $data['redirect']
@@ -120,15 +122,16 @@ class WC_Gateway_Truust extends \WC_Payment_Gateway
 		}
 	}
 
-	private function insert_settlor_order($order_id, $name, $link)
+	private function store_order($order_id, $truust_order_id, $order_name, $buyer_link)
 	{
 		global $wpdb;
 
-		$table = $wpdb->prefix . 'lp_settlor_order';
+		$table = $wpdb->prefix . 'truust_orders';
 		$wpdb->insert($table, [
 			'order_id' => $order_id,
-			'settlor_shortlink' => $link,
-			'products_name' => $name,
+			'truust_order_id' => $truust_order_id,
+			'products_name' => $order_name,
+			'shortlink' => $buyer_link,
 		]);
 
 		$wpdb->insert_id;
