@@ -9,7 +9,7 @@ Copy the woocommerce-truust-v2 folder containing the source code to the wp-conte
 Ensure that you have WooCommerce installed and activated before activating the woocommerce-truust-v2 plugin. Failure to do so will result in the woocommerce-truust-v2 plugin failing to activate and an error message
 
 ```
-Sorry, Lemonpay requires WooCommerce to be installed and activated first
+Sorry, Truust requires WooCommerce to be installed and activated first
 ```
 
 ## Usage

@@ -1,15 +1,15 @@
 <?php
 
-use Truust\Lemonpay;
+use Truust\Truust;
 
 if (!function_exists('truust')) {
 	function truust($abstract = null, array $parameters = [])
 	{
 		if (is_null($abstract)) {
-			return Lemonpay::getInstance();
+			return Truust::getInstance();
 		}
 
-		return (Lemonpay::getInstance())->make($abstract, $parameters);
+		return (Truust::getInstance())->make($abstract, $parameters);
 	}
 }
 

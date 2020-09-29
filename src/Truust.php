@@ -8,9 +8,9 @@ use Truust\Config;
 use Truust\Activator;
 use Illuminate\Container\Container;
 
-final class Lemonpay extends Container
+final class Truust extends Container
 {
-	private const GATEWAY = 'Truust\WC_Gateway_Lemonpay';
+	private const GATEWAY = 'Truust\WC_Gateway_Truust';
 
 	public function __construct($base)
 	{
@@ -36,7 +36,7 @@ final class Lemonpay extends Container
 	public function plugin_action_links($links)
 	{
 		return array_merge([
-			'<a href="' . admin_url('admin.php?page=wc-settings&tab=checkout&section=lemonpay') . '">' . __('Settings', config('text-domain')) . '</a>',
+			'<a href="' . admin_url('admin.php?page=wc-settings&tab=checkout&section=truust') . '">' . __('Settings', config('text-domain')) . '</a>',
 		], $links);
 	}
 
@@ -81,7 +81,7 @@ final class Lemonpay extends Container
 
 	public function redirect_configuration()
 	{
-		wp_redirect(admin_url('admin.php?page=wc-settings&tab=checkout&section=lemonpay'), 301);
+		wp_redirect(admin_url('admin.php?page=wc-settings&tab=checkout&section=truust'), 301);
 	}
 
 	public function enqueue_styles()
@@ -94,7 +94,7 @@ final class Lemonpay extends Container
 		$locale = apply_filters('plugin_locale', get_locale(), config('text-domain'));
 		$dir = trailingslashit(WP_LANG_DIR);
 
-		load_textdomain(config('text-domain'), $dir . 'lemonpay/lemonpay-' . $locale . '.mo');
+		load_textdomain(config('text-domain'), $dir . 'truust/truust-' . $locale . '.mo');
 		load_plugin_textdomain(config('text-domain'), false, dirname(plugin_basename(__FILE__)) . '/languages/');
 	}
 

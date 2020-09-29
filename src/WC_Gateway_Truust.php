@@ -2,7 +2,7 @@
 
 namespace Truust;
 
-class WC_Gateway_Lemonpay extends \WC_Payment_Gateway
+class WC_Gateway_Truust extends \WC_Payment_Gateway
 {
 	public function __construct()
 	{

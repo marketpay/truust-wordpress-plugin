@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin Name: Lemonpay 2.0
+ * Plugin Name: Truust 2.0
  * Plugin URI: https://truust.io
  * Description: Your smart payments platform
  * Version: 1.0.0
@@ -13,21 +13,21 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
-use Truust\Lemonpay;
+use Truust\Truust;
 
-$lemonpay = new Lemonpay(__FILE__);
+$truust = new Truust(__FILE__);
 
-if ($lemonpay->activation_check(__FILE__)) {
-	register_activation_hook(__FILE__, [$lemonpay, 'activate']);
+if ($truust->activation_check(__FILE__)) {
+	register_activation_hook(__FILE__, [$truust, 'activate']);
 
-	add_filter('plugin_action_links_' . plugin_basename(__FILE__), [$lemonpay, 'plugin_action_links']);
-	add_action('plugins_loaded', [$lemonpay, 'init_gateway'], 0);
-	add_filter('woocommerce_payment_gateways', [$lemonpay, 'add_gateway']);
-	add_action('admin_menu', [$lemonpay, 'add_admin_menu'], 57);
-	add_action('admin_enqueue_scripts', [$lemonpay, 'enqueue_styles']);
-	add_action('parse_request', [$lemonpay, 'handle_payment_response'], 0);
+	add_filter('plugin_action_links_' . plugin_basename(__FILE__), [$truust, 'plugin_action_links']);
+	add_action('plugins_loaded', [$truust, 'init_gateway'], 0);
+	add_filter('woocommerce_payment_gateways', [$truust, 'add_gateway']);
+	add_action('admin_menu', [$truust, 'add_admin_menu'], 57);
+	add_action('admin_enqueue_scripts', [$truust, 'enqueue_styles']);
+	add_action('parse_request', [$truust, 'handle_payment_response'], 0);
 
-	$lemonpay->load_plugin_textdomain();
+	$truust->load_plugin_textdomain();
 }
 
 add_action('admin_notices', 'display_flash_notices', 12);

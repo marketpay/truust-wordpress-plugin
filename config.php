@@ -1,8 +1,8 @@
 <?php
 
 return [
-	'name' => 'Lemonpay',
-	'id' => 'lemonpay',
+	'name' => 'Truust',
+	'id' => 'truust',
 	'description' => 'Your smart payments platform',
 	'text-domain' => 'truust',
 	'version' => '1.0.0',

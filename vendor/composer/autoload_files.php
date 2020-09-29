@@ -10,5 +10,5 @@ return array(
     'a4a119a56e50fbb293281d9a48007e0e' => $vendorDir . '/symfony/polyfill-php80/bootstrap.php',
     '72579e7bd17821bb1321b87411366eae' => $vendorDir . '/illuminate/support/helpers.php',
     '667aeda72477189d0494fecd327c3641' => $vendorDir . '/symfony/var-dumper/Resources/functions/dump.php',
-    'fe3d4bcf7f4f5a421395594bbaec43c0' => $baseDir . '/helpers.php',
+    '6245664bc4464f2b52376636e8a3a030' => $baseDir . '/helpers.php',
 );

@@ -11,7 +11,7 @@ class ComposerStaticInit0792426b9c4cfe8d82e148309dbad9ca
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
-        'fe3d4bcf7f4f5a421395594bbaec43c0' => __DIR__ . '/../..' . '/helpers.php',
+        '6245664bc4464f2b52376636e8a3a030' => __DIR__ . '/../..' . '/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -556,11 +556,9 @@ class ComposerStaticInit0792426b9c4cfe8d82e148309dbad9ca
         'Symfony\\Polyfill\\Php80\\Php80' => __DIR__ . '/..' . '/symfony/polyfill-php80/Php80.php',
         'Truust\\Activator' => __DIR__ . '/../..' . '/src/Activator.php',
         'Truust\\Config' => __DIR__ . '/../..' . '/src/Config.php',
-        'Truust\\Gateway' => __DIR__ . '/../..' . '/src/Gateway.php',
-        'Truust\\Lemonpay' => __DIR__ . '/../..' . '/src/Lemonpay.php',
-        'Truust\\WC_Gateway_Lemonpay' => __DIR__ . '/../..' . '/src/WC_Gateway_Lemonpay.php',
-        'Truust\\WC_Gateway_Lemonpay_New' => __DIR__ . '/../..' . '/src/WC_Gateway_Lemonpay_New.php',
-        'Truust\\WC_Gateway_Lemonpay_Request' => __DIR__ . '/../..' . '/src/WC_Gateway_Lemonpay_Request.php',
+        'Truust\\Request' => __DIR__ . '/../..' . '/src/Request.php',
+        'Truust\\Truust' => __DIR__ . '/../..' . '/src/Truust.php',
+        'Truust\\WC_Gateway_Truust' => __DIR__ . '/../..' . '/src/WC_Gateway_Truust.php',
         'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
         'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
         'voku\\helper\\ASCII' => __DIR__ . '/..' . '/voku/portable-ascii/src/voku/helper/ASCII.php',
