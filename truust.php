@@ -26,6 +26,8 @@ if ($truust->activation_check(__FILE__)) {
 	add_action('admin_menu', [$truust, 'add_admin_menu'], 57);
 	add_action('admin_enqueue_scripts', [$truust, 'enqueue_styles']);
 	add_action('parse_request', [$truust, 'handle_payment_response'], 0);
+	add_action('woocommerce_admin_order_data_after_order_details', [$truust, 'admin_order_truust_order_id'], 10, 1);
+
 
 	$truust->load_plugin_textdomain();
 }

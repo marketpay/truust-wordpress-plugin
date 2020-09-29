@@ -125,6 +125,20 @@ final class Truust extends Container
 		}
 	}
 
+	public function admin_order_truust_order_id($order)
+	{
+		global $wpdb;
+
+		$table = $wpdb->prefix . 'truust_orders';
+		$results = $wpdb->get_results(
+			$wpdb->prepare('SELECT * FROM ' . $table . ' WHERE order_id = ' . $order->get_id() . ' LIMIT 1')
+		);
+
+		$truust_order = $results[0];
+
+		require_once(truust('path') . 'views/truust_order_id.php');
+	}
+
 	// ---------- activation ---------- //
 
 	public function activate()

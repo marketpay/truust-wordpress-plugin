@@ -89,17 +89,9 @@ class WC_Gateway_Truust extends \WC_Payment_Gateway
 		]);
 	}
 
-	public function generate_getting_started_html($key, $value)
+	public function generate_getting_started_html()
 	{
-		?>
-			<tr valign="top">
-				<td colspan="2">
-					<a href="https://docs.truust.io/getting-started" target="_blank">
-						<?php _e('https://docs.truust.io/getting-started', config('text-domain')); ?>
-					</a>
-				</td>
-			</tr>
-		<?php
+		require_once(truust('path') . 'views/getting_started_link.php');
 	}
 
 	public function process_payment($order_id)
