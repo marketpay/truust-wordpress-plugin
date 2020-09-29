@@ -4,10 +4,10 @@
 	"type": "wordpress-plugin",
 	"version": "2.0.0",
 	"require": {
-		"php": ">=7.2",
-		"illuminate/container": "^7.22",
-		"illuminate/config": "^7.22",
-		"symfony/var-dumper": "^5.1"
+		"php": ">=7.0",
+		"illuminate/config": "^5.5",
+		"illuminate/container": "^5.5",
+		"symfony/var-dumper": "^3.4"
 	},
 	"authors": [{
 		"name": "Richard Stovall",
