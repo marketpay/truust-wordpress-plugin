@@ -5,10 +5,10 @@
  * Plugin URI: https://truust.io
  * Description: Your smart payments platform
  * Version: 1.0.0
- * Author: Richard Stovall
+ * Author: Truust <hello@truust.io>
  * License: GPL3
  * Requires at least: 5.4.2
- * Requires PHP: 7.2
+ * Requires PHP: 7.0
  */
 
 require __DIR__ . '/vendor/autoload.php';

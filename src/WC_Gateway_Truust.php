@@ -28,6 +28,8 @@ class WC_Gateway_Truust extends \WC_Payment_Gateway
 
 	public function init_form_fields()
 	{
+		parent::init_form_fields();
+
 		$this->form_fields = [
 
 			// ---------- api credentials ---------- //
@@ -36,7 +38,7 @@ class WC_Gateway_Truust extends \WC_Payment_Gateway
 				'type' => 'title',
 			],
 			'api_key' => [
-				'title' => __('API Key', config('text-domain')),
+				'title' => __('Secret Key', config('text-domain')),
 				'type' => 'text',
 				'description' => __($this->envrionment_desc(), config('text-domain')),
 			],
@@ -77,6 +79,27 @@ class WC_Gateway_Truust extends \WC_Payment_Gateway
 				'type' => 'text',
 			],
 		];
+
+		$this->form_fields = array_merge($this->form_fields, [
+			'getting_started_link' => [
+				'id' => 'getting_started',
+				'type' => 'getting_started',
+				'title' => __('Getting Started', config('text-domain')),
+			]
+		]);
+	}
+
+	public function generate_getting_started_html($key, $value)
+	{
+		?>
+			<tr valign="top">
+				<td colspan="2">
+					<a href="https://docs.truust.io/getting-started" target="_blank">
+						<?php _e('https://docs.truust.io/getting-started', config('text-domain')); ?>
+					</a>
+				</td>
+			</tr>
+		<?php
 	}
 
 	public function process_payment($order_id)

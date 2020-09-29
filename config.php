@@ -10,5 +10,9 @@ return [
 	'api' => [
 		'sandbox' => 'https://api-sandbox.truust.io',
 		'production' => 'https://api.truust.io'
+	],
+	
+	'dev' => [
+		'gateway' => 'Truust\WC_Gateway_Truust'
 	]
 ];

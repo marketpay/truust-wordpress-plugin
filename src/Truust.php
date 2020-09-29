@@ -10,8 +10,6 @@ use Illuminate\Container\Container;
 
 final class Truust extends Container
 {
-	private const GATEWAY = 'Truust\WC_Gateway_Truust';
-
 	public function __construct($base)
 	{
 		static::setInstance($this);
@@ -26,7 +24,7 @@ final class Truust extends Container
 			return new Config($this->path . 'config.php');
 		});
 
-		$this->singleton('gateway', self::GATEWAY);
+		$this->singleton('gateway', config('dev.gateway'));
 
 		$this->bind('request', 'Truust\Request');
 	}
@@ -50,7 +48,7 @@ final class Truust extends Container
 	public function add_gateway($methods)
 	{
 		return array_merge($methods, [
-			self::GATEWAY
+			config('dev.gateway')
 		]);
 	}
 
