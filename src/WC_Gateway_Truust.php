@@ -19,6 +19,7 @@ class WC_Gateway_Truust extends \WC_Payment_Gateway
 		config()->set('api_url', $this->base());
 		config()->set('seller_confirmed_url', $this->settings['seller_confirmed_url']);
 		config()->set('seller_denied_url', $this->settings['seller_denied_url']);
+		config()->set('email', $this->settings['email']);
 
 		$this->title = __(config('name'), config('text-domain'));
 		$this->description = __($this->settings['description'], config('text-domain'));

@@ -130,11 +130,7 @@ final class Truust extends Container
 		global $wpdb;
 
 		$table = $wpdb->prefix . 'truust_orders';
-		$results = $wpdb->get_results(
-			$wpdb->prepare('SELECT * FROM ' . $table . ' WHERE order_id = ' . $order->get_id() . ' LIMIT 1')
-		);
-
-		$truust_order = $results[0];
+		$truust_order = $wpdb->get_row('SELECT * FROM ' . $table . ' WHERE order_id = ' . $order->get_id());
 
 		require_once(truust('path') . 'views/truust_order_id.php');
 	}
