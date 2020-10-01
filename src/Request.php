@@ -139,7 +139,7 @@ class Request
 				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 				CURLOPT_CUSTOMREQUEST => "POST",
 				CURLOPT_POSTFIELDS => [
-					'email' => 'test@truust.io'
+					'email' => $email
 				],
 				CURLOPT_HTTPHEADER => [
 					'Accept: application/json',
