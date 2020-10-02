@@ -1,5 +1,5 @@
 {
-	"name": "truust/v2",
+	"name": "truust-io/woocommerce-truust",
 	"description": "Your smart payments platform",
 	"type": "wordpress-plugin",
 	"version": "2.0.0",
@@ -10,8 +10,8 @@
 		"symfony/var-dumper": "^3.4"
 	},
 	"authors": [{
-		"name": "Richard Stovall",
-		"email": "rs@codeydevelopment.com"
+		"name": "Truust",
+		"email": "hello@truust.io"
 	}],
 	"autoload": {
 		"psr-4": {
