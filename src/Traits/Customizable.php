@@ -10,7 +10,7 @@ trait Customizable
 	{
 		$form_fields = [
 			// ---------- api credentials ---------- //
-			
+
 			'credentials_section_heading' => [
 				'title' => __('Truust API Credentials', config('text-domain')),
 				'type' => 'title',
@@ -22,7 +22,7 @@ trait Customizable
 			],
 
 			// ---------- display settings ---------- //
-			
+
 			'display_section_heading' => [
 				'title' => __('Display Options', config('text-domain')),
 				'type' => 'title',
@@ -82,7 +82,8 @@ trait Customizable
 				],
 				'origin_address' => [
 					'title' => __('Origin Address', config('text-domain')),
-					'type' => 'text',
+					'type' => 'textarea',
+					'css' => 'width: 400px;',
 				],
 				'origin_city' => [
 					'title' => __('Origin City', config('text-domain')),
