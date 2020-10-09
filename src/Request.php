@@ -2,6 +2,8 @@
 
 namespace Truust;
 
+defined( 'ABSPATH' ) || exit;
+
 class Request
 {
 	/**
@@ -10,12 +12,13 @@ class Request
 	 *
 	 * wc_get_checkout_url() returns a url with the following format:
 	 * http://localhost:8001/?page_id=8
+	 *
 	 * we append '?status=failed&key=' . $order->get_order_key() to indicate the payment failed
 	 *
 	 */
 	public function send($order)
 	{
-		if (!config('api_key')) {
+		if (!settings('api_key')) {
 			return;
 		}
 
@@ -36,7 +39,7 @@ class Request
 		$curl = curl_init();
 
 		curl_setopt_array($curl, [
-			CURLOPT_URL => config('api_url') . '/2.0/orders',
+			CURLOPT_URL => api_base_url() . '/2.0/orders',
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_ENCODING => '',
 			CURLOPT_MAXREDIRS => 10,
@@ -50,19 +53,19 @@ class Request
 				'name' => mb_strimwidth($name, 0, 120),
 				'value' => $order->get_total(),
 				'tag' => $order->get_id(),
-				'seller_confirmed_url' => config('seller_confirmed_url'),
-				'seller_denied_url' => config('seller_denied_url'),
+				'seller_confirmed_url' => settings('seller_confirmed_url'),
+				'seller_denied_url' => settings('seller_denied_url'),
 				'buyer_confirmed_url' => html_entity_decode(truust('gateway')->get_return_url($order)),
 				'buyer_denied_url' => wc_get_checkout_url() . '&status=failed&key=' . $order->get_order_key(),
 			],
 			CURLOPT_HTTPHEADER => [
 				'Accept: application/json',
-				'Authorization: Bearer ' . config('api_key'),
+				'Authorization: Bearer ' . settings('api_key'),
 			],
 		]);
 
 		$response = curl_exec($curl);
-		$response = $this->remove_utf8_bom($response);
+		$response = remove_utf8_bom($response);
 		$response = json_decode($response, true);
 
 		curl_close($curl);
@@ -81,7 +84,7 @@ class Request
 		$curl = curl_init();
 
 		curl_setopt_array($curl, array(
-			CURLOPT_URL => config('api_url') . '/2.0/payins',
+			CURLOPT_URL => api_base_url() . '/2.0/payins',
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_ENCODING => "",
 			CURLOPT_MAXREDIRS => 10,
@@ -95,12 +98,12 @@ class Request
 			],
 			CURLOPT_HTTPHEADER => [
 				'Accept: application/json',
-				'Authorization: Bearer ' . config('api_key'),
+				'Authorization: Bearer ' . settings('api_key'),
 			],
 		));
 
 		$response = curl_exec($curl);
-		$response = $this->remove_utf8_bom($response);
+		$response = remove_utf8_bom($response);
 		$response = json_decode($response, true);
 
 		curl_close($curl);
@@ -130,7 +133,7 @@ class Request
 			$curl = curl_init();
 
 			curl_setopt_array($curl, array(
-				CURLOPT_URL => config('api_url') . '/2.0/customers',
+				CURLOPT_URL => api_base_url() . '/2.0/customers',
 				CURLOPT_RETURNTRANSFER => true,
 				CURLOPT_ENCODING => "",
 				CURLOPT_MAXREDIRS => 10,
@@ -143,12 +146,12 @@ class Request
 				],
 				CURLOPT_HTTPHEADER => [
 					'Accept: application/json',
-					'Authorization: Bearer ' . config('api_key'),
+					'Authorization: Bearer ' . settings('api_key'),
 				],
 			));
 
 			$response = curl_exec($curl);
-			$response = $this->remove_utf8_bom($response);
+			$response = remove_utf8_bom($response);
 			$response = json_decode($response, true);
 
 			if (isset($response['data'])) {

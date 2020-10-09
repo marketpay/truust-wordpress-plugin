@@ -2,6 +2,8 @@
 
 namespace Truust;
 
+defined( 'ABSPATH' ) || exit;
+
 require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 use Truust\Config;
@@ -24,7 +26,7 @@ final class Truust extends Container
 			return new Config($this->path . 'config.php');
 		});
 
-		$this->singleton('gateway', config('dev.gateway'));
+		$this->singleton('gateway', config('gateway'));
 
 		$this->bind('request', 'Truust\Request');
 	}
@@ -48,7 +50,7 @@ final class Truust extends Container
 	public function add_gateway($methods)
 	{
 		return array_merge($methods, [
-			config('dev.gateway')
+			config('gateway')
 		]);
 	}
 
@@ -84,7 +86,7 @@ final class Truust extends Container
 
 	public function enqueue_styles()
 	{
-		wp_enqueue_style('admin_page', truust('url') . 'assets/css/truust-icons.css', [], config('version'), 'all');
+		wp_enqueue_style('admin_page', truust('url') . 'assets/css/truust.css', [], config('version'), 'all');
 	}
 
 	public function load_plugin_textdomain()

@@ -16,4 +16,49 @@
 .dashicons-truust-logo:before {
   content: '\e900'; }
 
-/*# sourceMappingURL=truust-icons.css.map */
+#truust-validator-btn {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 30px;
+  overflow: hidden; }
+  #truust-validator-btn .validator-text {
+    display: inline; }
+  #truust-validator-btn .truust-spinner {
+    display: none;
+    height: 30px;
+    align-items: center; }
+    #truust-validator-btn .truust-spinner:before {
+      display: inline-block;
+      content: '';
+      width: 20px;
+      height: 20px;
+      background-image: url("../images/spinner.svg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      animation: spin 2s infinite linear; }
+  #truust-validator-btn.working .validator-text {
+    display: none; }
+  #truust-validator-btn.working .truust-spinner {
+    display: inline-flex; }
+
+.valid_key .valid {
+  color: #46b450; }
+.valid_key .invalid {
+  color: #dc3232; }
+
+#truust-validation-notice {
+  width: 400px; }
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }
+.form-table td .description {
+  font-size: 13px; }
+
+/*# sourceMappingURL=truust.css.map */

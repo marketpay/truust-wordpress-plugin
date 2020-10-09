@@ -13,6 +13,8 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
+defined( 'ABSPATH' ) || exit;
+
 use Truust\Truust;
 
 $truust = new Truust(__FILE__);
