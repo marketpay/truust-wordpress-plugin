@@ -30,21 +30,6 @@ if (!function_exists('config')) {
 	}
 }
 
-if (!function_exists('settings')) {
-	function settings($key = null)
-	{
-		if (is_null($key)) {
-			return truust('gateway')->settings;
-		}
-
-		if (is_array($key)) {
-			return truust('gateway')->settings = array_merge(truust('gateway')->settings, $key);
-		}
-
-		return isset(truust('gateway')->settings[$key]) ? truust('gateway')->settings[$key] : false;
-	}
-}
-
 if (!function_exists('add_flash_notice')) {
 	function add_flash_notice($notice = '', $type = 'warning', $dismissible = true)
 	{
@@ -91,19 +76,15 @@ if (!function_exists('remove_utf8_bom')) {
 }
 
 if (!function_exists('determine_env')) {
-	function determine_env($key = null)
+	function determine_env($key)
 	{
-		$key = $key ? $key : settings('api_key');
-
 		return preg_match('/(sk_stage_)/', $key) ? 'sandbox' : 'production';
 	}
 }
 
 if (!function_exists('api_base_url')) {
-	function api_base_url($key = null)
+	function api_base_url($key)
 	{
-		$key = $key ? $key : settings('api_key');
-
 		return preg_match('/(sk_stage_)/', $key) ? config('api.sandbox') : config('api.production');
 	}
 }
