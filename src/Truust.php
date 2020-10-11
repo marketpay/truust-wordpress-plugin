@@ -185,6 +185,7 @@ final class Truust extends Container
 	public function initiate_shipping($order_id)
 	{
 		$order = new \WC_Order($order_id);
+		$truust_order_id = $this->get_truust_id_from_order_id($order_id);
 		$api_key = truust('gateway')->settings['api_key'];
 		$url = api_base_url($api_key) . '/2.0/shippings';
 		$settings = truust('gateway')->settings;
@@ -201,7 +202,7 @@ final class Truust extends Container
 			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 			CURLOPT_CUSTOMREQUEST => 'POST',
 			CURLOPT_POSTFIELDS => [
-				'order_id' => $order_id,
+				'order_id' => $truust_order_id,
 				'origin_name' => $settings['origin_name'],
 				'origin_line1' => $settings['origin_address'],
 				'origin_city' => $settings['origin_city'],
@@ -213,7 +214,7 @@ final class Truust extends Container
 				'destination_city' => $order->get_billing_city(),
 				'destination_state' => $order->get_billing_state(),
 				'destination_zip_code' => $order->get_billing_postcode(),
-				'destination_country' => $order->get_billing_country()
+				'destination_country' => $order->get_billing_country(),
 			],
 			CURLOPT_HTTPHEADER => [
 				'Accept: application/json',
