@@ -34,6 +34,45 @@ class Gateway extends \WC_Payment_Gateway
 		add_action('woocommerce_update_options_payment_gateways_' . $this->id, [$this, 'process_admin_options']);
 	}
 
+	// ---------- payment ---------- //
+
+	public function process_payment($order_id)
+	{
+		$order = new \WC_Order($order_id);
+
+		$data = truust('request')->send($order);
+
+		if ($data) {
+			$this->store_order($order->get_id(), $data['truust_order_id'], $data['order_name'], $data['buyer_link']);
+
+			return [
+				'result' => 'success',
+				'redirect' => $data['redirect']
+			];
+		} else {
+			return [
+				'result' => 'error',
+			];
+		}
+	}
+
+	private function store_order($order_id, $truust_order_id, $order_name, $buyer_link)
+	{
+		global $wpdb;
+
+		$table = $wpdb->prefix . 'truust_orders';
+		$wpdb->insert($table, [
+			'order_id' => $order_id,
+			'truust_order_id' => $truust_order_id,
+			'products_name' => $order_name,
+			'shortlink' => $buyer_link,
+		]);
+
+		$wpdb->insert_id;
+	}
+
+	// ---------- validation ---------- //
+
 	public function validate()
 	{
 		$key = $this->get_option('api_key');
@@ -83,46 +122,6 @@ class Gateway extends \WC_Payment_Gateway
 		return false;
 	}
 
-	public function base_url($key)
-	{
-		return preg_match('/(sk_stage_)/', $key) ? config('api.sandbox') : config('api.production');
-	}
-
-	public function process_payment($order_id)
-	{
-		$order = new \WC_Order($order_id);
-
-		$data = truust('request')->send($order);
-
-		if ($data) {
-			$this->store_order($order->get_id(), $data['truust_order_id'], $data['order_name'], $data['buyer_link']);
-
-			return [
-				'result' => 'success',
-				'redirect' => $data['redirect']
-			];
-		} else {
-			return [
-				'result' => 'error',
-			];
-		}
-	}
-
-	private function store_order($order_id, $truust_order_id, $order_name, $buyer_link)
-	{
-		global $wpdb;
-
-		$table = $wpdb->prefix . 'truust_orders';
-		$wpdb->insert($table, [
-			'order_id' => $order_id,
-			'truust_order_id' => $truust_order_id,
-			'products_name' => $order_name,
-			'shortlink' => $buyer_link,
-		]);
-
-		$wpdb->insert_id;
-	}
-
 	// ---------- setup ---------- //
 
 	public function enqueue_scripts()
@@ -131,6 +130,11 @@ class Gateway extends \WC_Payment_Gateway
 	}
 
 	// ---------- utilities ---------- //
+
+	public function base_url($key)
+	{
+		return preg_match('/(sk_stage_)/', $key) ? config('api.sandbox') : config('api.production');
+	}
 
 	public function envrionment_desc()
 	{
