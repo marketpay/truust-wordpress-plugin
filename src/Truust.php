@@ -27,8 +27,7 @@ final class Truust extends Container
 		});
 
 		$this->singleton('gateway', config('gateway'));
-
-		$this->bind('request', 'Truust\Request');
+		$this->bind('request', config('request'));
 	}
 
 	// ---------- setup and initialization ---------- //
