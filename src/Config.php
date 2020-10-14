@@ -2,6 +2,8 @@
 
 namespace Truust;
 
+defined( 'ABSPATH' ) || exit;
+
 use Illuminate\Config\Repository;
 
 class Config extends Repository
