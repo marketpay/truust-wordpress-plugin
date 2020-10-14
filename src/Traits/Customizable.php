@@ -81,7 +81,12 @@ trait Customizable
 					'type' => 'text',
 				],
 				'origin_address' => [
-					'title' => __('Origin Address', config('text-domain')),
+					'title' => __('Origin Address Line 1', config('text-domain')),
+					'type' => 'textarea',
+					'css' => 'width: 400px;',
+				],
+				'origin_address_2' => [
+					'title' => __('Origin Address Line 2', config('text-domain')),
 					'type' => 'textarea',
 					'css' => 'width: 400px;',
 				],
@@ -181,17 +186,6 @@ trait Customizable
 					</fieldset>
 				</td>
 			</tr>
-			<tr valign="top">
-				<th scope="row" class="titledesc">
-					<label for="allow_shipping">Shipping Enabled</label>
-				</th>
-				<td class="forminp">
-					<fieldset>
-						<legend class="screen-reader-text"><span>Shipping Enabled</span></legend>
-						<p><?php echo $this->allow_shipping ? 'Yes' : 'No'; ?></p>
-					</fieldset>
-				</td>
-			</tr>
 		<?php
 
 		return ob_get_clean();
@@ -219,9 +213,9 @@ trait Customizable
 				<td class="forminp">
 					<fieldset>
 						<legend class="screen-reader-text"><span><?php echo wp_kses_post($data['title']); ?></span></legend>
-						<select name="<?php echo esc_attr( $field_key ); ?>" id="<?php echo esc_attr( $field_key ); ?>">
+						<select name="<?php echo esc_attr( $field_key ); ?>" id="<?php echo esc_attr( $field_key ); ?>" disabled>
 							<?php foreach (countries() as $key => $value) : ?>
-								<?php if ($key === $code) : ?>
+								<?php if ($key === 'ES') : ?>
 									<option value="<?php echo $key; ?>" selected="selected"><?php echo $value; ?></option>
 								<?php else : ?>
 									<option value="<?php echo $key; ?>"><?php echo $value; ?></option>
@@ -236,10 +230,81 @@ trait Customizable
 		return ob_get_clean();
 	}
 
+	// ---------- validators ---------- //
+
+	public function validate_origin_name_field($key, $value)
+	{
+		if ($value === '') {
+			add_flash_notice(__($this->title_case($key) . ' is required', config('text-domain')), 'error', true);
+		} else if (strlen($value) > 40) {
+			add_flash_notice(__($this->title_case($key) . ' must be 40 characters or less', config('text-domain')), 'error', true);
+		} else {
+			return $value;
+		}
+	}
+
+	public function validate_origin_address_field($key, $value)
+	{
+		if ($value === '') {
+			add_flash_notice(__($this->title_case($key) . ' is required', config('text-domain')), 'error', true);
+		} else if (strlen($value) > 40) {
+			add_flash_notice(__($this->title_case($key) . ' must be 40 characters or less', config('text-domain')), 'error', true);
+		} else {
+			return $value;
+		}
+	}
+
+	public function validate_origin_address_2_field($key, $value)
+	{
+		if (strlen($value) > 30) {
+			add_flash_notice(__($this->title_case($key) . ' must be 30 characters or less', config('text-domain')), 'error', true);
+		} else {
+			return $value;
+		}
+	}
+
+	public function validate_origin_city_field($key, $value)
+	{
+		if ($value === '') {
+			add_flash_notice(__($this->title_case($key) . ' is required', config('text-domain')), 'error', true);
+		} else if (strlen($value) > 40) {
+			add_flash_notice(__($this->title_case($key) . ' must be 255 characters or less', config('text-domain')), 'error', true);
+		} else {
+			return $value;
+		}
+	}
+
+	public function validate_origin_state_field($key, $value)
+	{
+		if ($value === '') {
+			add_flash_notice(__($this->title_case($key) . ' is required', config('text-domain')), 'error', true);
+		} else if (strlen($value) > 40) {
+			add_flash_notice(__($this->title_case($key) . ' must be 255 characters or less', config('text-domain')), 'error', true);
+		} else {
+			return $value;
+		}
+	}
+
+	public function validate_origin_zip_code_field($key, $value)
+	{
+		if ($value === '') {
+			add_flash_notice(__($this->title_case($key) . ' is required', config('text-domain')), 'error', true);
+		} else if (strlen($value) != 5) {
+			add_flash_notice(__($this->title_case($key) . ' must be 5 digits', config('text-domain')), 'error', true);
+		} else {
+			return $value;
+		}
+	}
+
 	// ---------- utilities ---------- //
 
 	public function get_link_html($data)
 	{
 		return !empty($data['link_url']) ? '<p><a href="'. $data['link_url'] .'" target="_blank">' .  wp_kses_post(!empty($data['link_text']) ? $data['link_text'] : $data['link_url']) . '</a></p>' . "\n" : '';
+	}
+
+	public function title_case($str)
+	{
+		return ucwords(str_replace('_', ' ', $str));
 	}
 }
