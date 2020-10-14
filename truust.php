@@ -13,6 +13,8 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
+defined('ABSPATH') || exit;
+
 use Truust\Truust;
 
 $truust = new Truust(__FILE__);
@@ -27,7 +29,7 @@ if ($truust->activation_check(__FILE__)) {
 	add_action('admin_enqueue_scripts', [$truust, 'enqueue_styles']);
 	add_action('parse_request', [$truust, 'handle_payment_response'], 0);
 	add_action('woocommerce_admin_order_data_after_order_details', [$truust, 'admin_order_truust_order_id'], 10, 1);
-
+	add_action('woocommerce_order_status_completed', [$truust, 'truust_order_status_completed'], 10, 1);
 
 	$truust->load_plugin_textdomain();
 }
