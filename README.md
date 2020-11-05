@@ -16,6 +16,6 @@ Sorry, Truust requires WooCommerce to be installed and activated first
 
 Once activated you should see a new menu option in the admin sidebar labelled `Truust` which will take you to the WooCommerce Payment Settings page to configure the settings for the new gateway.
 
-![Woocommerce Truust v2 Plugin Menu](https://github.com/truust-io/woocommerce-truust/raw/master/setup/menu.jpg)
+![Woocommerce Truust v2 Plugin Menu](https://raw.githubusercontent.com/truust-io/woocommerce-truust/v2.1/setup/menu.jpg)
 
-![Woocommerce Truust v2 Plugin Settings](https://github.com/truust-io/woocommerce-truust/raw/master/setup/settings.jpg)
+![Woocommerce Truust v2 Plugin Settings](https://raw.githubusercontent.com/truust-io/woocommerce-truust/v2.1/setup/settings.jpg)
