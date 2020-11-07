@@ -175,4 +175,10 @@ class Request
 
 		return false;
 	}
+	public function truncateTable($tableToTruncate)
+	{
+		global $wpdb;
+		$wpdb->query('TRUNCATE TABLE ' . $tableToTruncate);
+		return true;
+	}
 }
