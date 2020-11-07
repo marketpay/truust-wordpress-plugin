@@ -75,9 +75,12 @@ class Gateway extends \WC_Payment_Gateway
 
 	public function validate()
 	{
-		$key = $this->get_option('api_key');
+		global $wpdb;
 
-		if ($key) {
+		$key = $this->get_option('api_key');
+		$table = $wpdb->prefix . 'truust_customers';
+		$isTruncated = truust('request')->truncateTable($table);
+		if ($key && $isTruncated) {
 			$curl = curl_init();
 
 			curl_setopt_array($curl, [
