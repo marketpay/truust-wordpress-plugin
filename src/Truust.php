@@ -267,7 +267,7 @@ final class Truust extends Container
 		return false;
 	}
 
-	//
+	// ---------- utilities ---------- //
 
 	public function get_truust_id_from_order_id($order_id)
 	{

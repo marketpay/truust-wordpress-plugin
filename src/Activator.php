@@ -51,4 +51,13 @@ class Activator
 			dbDelta($q);
 		}
 	}
+
+	public static function reset_truust_customers()
+	{
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+		
+		global $wpdb;
+
+		$wpdb->query('TRUNCATE TABLE ' . $wpdb->prefix . 'truust_customers');
+	}
 }

@@ -7,6 +7,7 @@ defined( 'ABSPATH' ) || exit;
 class Request
 {
 	private $api_key;
+	
 	/**
 	 * get_return_url($order) returns a url with the following format:
 	 * http://localhost:8001/?page_id=8&order-received=21&key=wc_order_DIr56QeBwbcuM
@@ -34,10 +35,6 @@ class Request
 
 		$seller_id = $this->create_customer(truust('gateway')->settings['email']);
 		$buyer_id = $this->create_customer($order->billing_email);
-
-		$settings = truust('gateway')->settings;
-
-		dd($settings);
 
 		if (!$seller_id || !$buyer_id) {
 			return false;

@@ -2,6 +2,8 @@
 
 namespace Truust\Traits;
 
+use Truust\Activator;
+
 defined('ABSPATH') || exit;
 
 trait Customizable
@@ -110,6 +112,33 @@ trait Customizable
 		}
 
 		$this->form_fields = $form_fields;
+	}
+
+	// ---------- overrides ---------- //
+
+	public function process_admin_options() {
+		$this->init_settings();
+
+		$post_data = $this->get_post_data();
+
+		$old = determine_env($this->get_option('api_key'));
+		$new = determine_env($post_data['woocommerce_truust_api_key']);
+
+		if ($old !== $new) {
+			Activator::reset_truust_customers();
+		}
+
+		foreach ( $this->get_form_fields() as $key => $field ) {
+			if ( 'title' !== $this->get_field_type( $field ) ) {
+				try {
+					$this->settings[ $key ] = $this->get_field_value( $key, $field, $post_data );
+				} catch (\Exception $e ) {
+					$this->add_error( $e->getMessage() );
+				}
+			}
+		}
+
+		return update_option( $this->get_option_key(), apply_filters( 'woocommerce_settings_api_sanitized_fields_' . $this->id, $this->settings ), 'yes' );
 	}
 
 	// ---------- generators ---------- //
