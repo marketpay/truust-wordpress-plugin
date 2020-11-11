@@ -5,8 +5,8 @@
 	"version": "2.0.0",
 	"require": {
 		"php": ">=7.0",
-		"illuminate/config": "^5.5",
 		"illuminate/container": "^5.5",
+		"illuminate/config": "^5.5",
 		"symfony/var-dumper": "^3.4"
 	},
 	"authors": [{
