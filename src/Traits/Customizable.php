@@ -124,7 +124,7 @@ trait Customizable
 		$old = determine_env($this->get_option('api_key'));
 		$new = determine_env($post_data['woocommerce_truust_api_key']);
 
-		if ($old !== $new) {
+		if ($old != $new) {
 			Activator::reset_truust_customers();
 		}
 

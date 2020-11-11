@@ -122,8 +122,43 @@ final class Truust extends Container
 			$order = new \WC_Order(wc_get_order_id_by_order_key($_GET['key']));
 
 			if ($order) {
-				$order->payment_complete();
+				// $this->verify_order_status($order);
 			}
+		}
+	}
+
+	public function verify_order_status($order)
+	{
+		$truust_order_id = $this->get_truust_id_from_order_id($order->get_id());
+
+		$api_key = truust('gateway')->settings['api_key'];
+		$url = api_base_url($api_key) . '/2.0/orders/' . $truust_order_id;
+
+		$curl = curl_init();
+
+		curl_setopt_array($curl, [
+			CURLOPT_URL => $url,
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_ENCODING => "",
+			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_TIMEOUT => 0,
+			CURLOPT_FOLLOWLOCATION => true,
+			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			CURLOPT_CUSTOMREQUEST => 'GET',
+			CURLOPT_HTTPHEADER => [
+				'Accept: application/json',
+				'Authorization: Bearer ' . $api_key,
+			],
+		]);
+
+		$response = curl_exec($curl);
+		$response = remove_utf8_bom($response);
+		$response = json_decode($response, true);
+
+		curl_close($curl);
+
+		if ($response['data'] && $response['data']['status'] == 'ACCEPTED') {
+			$order->payment_complete();
 		}
 	}
 
