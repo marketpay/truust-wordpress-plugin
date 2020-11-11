@@ -35,6 +35,10 @@ class Request
 		$seller_id = $this->create_customer(truust('gateway')->settings['email']);
 		$buyer_id = $this->create_customer($order->billing_email);
 
+		$settings = truust('gateway')->settings;
+
+		dd($settings);
+
 		if (!$seller_id || !$buyer_id) {
 			return false;
 		}

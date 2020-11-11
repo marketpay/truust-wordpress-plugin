@@ -8,7 +8,7 @@ return [
 	'description' => 'Your smart payments platform',
 	'text-domain' => 'truust',
 	'email' => 'hello@truust.io',
-	'version' => '1.0.0',
+	'version' => '2.2.0',
 	'image' => 'assets/images/logo.png',
 	'gateway' => 'Truust\Gateway',
 	'request' => 'Truust\Request',

@@ -213,12 +213,12 @@ trait Customizable
 				<td class="forminp">
 					<fieldset>
 						<legend class="screen-reader-text"><span><?php echo wp_kses_post($data['title']); ?></span></legend>
-						<select name="<?php echo esc_attr( $field_key ); ?>" id="<?php echo esc_attr( $field_key ); ?>" disabled>
+						<select class="select <?php echo esc_attr( $data['class'] ); ?>" name="<?php echo esc_attr( $field_key ); ?>" id="<?php echo esc_attr( $field_key ); ?>">
 							<?php foreach (countries() as $key => $value) : ?>
 								<?php if ($key === 'ES') : ?>
-									<option value="<?php echo $key; ?>" selected="selected"><?php echo $value; ?></option>
+									<option value="ES" selected="selected">Spain</option>
 								<?php else : ?>
-									<option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+									<option value="<?php echo $key; ?>" disabled="true"><?php echo $value; ?></option>
 								<?php endif; ?>
 							<?php endforeach; ?>
 						</select>
