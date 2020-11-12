@@ -119,7 +119,7 @@ final class Truust extends Container
 		}
 
 		// handle payment succeeded
-		if (isset($_GET['key']) && isset($_GET['order-received'])) {
+		if (isset($_GET['key']) && is_wc_endpoint_url( 'order-received' )) {
 			$order = new \WC_Order(wc_get_order_id_by_order_key($_GET['key']));
 
 			if ($order) {
