@@ -8,8 +8,8 @@ class ComposerStaticInitfe6a925d57ee55704de52ee2267a0a7a
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
-        '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
+        '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '0f35a2e5776e9039ce00cdecd6742004' => __DIR__ . '/../..' . '/helpers.php',
     );
 
@@ -21,6 +21,7 @@ class ComposerStaticInitfe6a925d57ee55704de52ee2267a0a7a
         'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Contracts\\Translation\\' => 30,
             'Symfony\\Component\\VarDumper\\' => 28,
             'Symfony\\Component\\Translation\\' => 30,
         ),
@@ -40,6 +41,10 @@ class ComposerStaticInitfe6a925d57ee55704de52ee2267a0a7a
         array (
             'Doctrine\\Common\\Inflector\\' => 26,
         ),
+        'C' => 
+        array (
+            'Carbon\\' => 7,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -50,6 +55,10 @@ class ComposerStaticInitfe6a925d57ee55704de52ee2267a0a7a
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Symfony\\Contracts\\Translation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/translation-contracts',
         ),
         'Symfony\\Component\\VarDumper\\' => 
         array (
@@ -87,24 +96,10 @@ class ComposerStaticInitfe6a925d57ee55704de52ee2267a0a7a
         array (
             0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector',
         ),
-    );
-
-    public static $fallbackDirsPsr4 = array (
-        0 => __DIR__ . '/..' . '/nesbot/carbon/src',
-    );
-
-    public static $prefixesPsr0 = array (
-        'U' => 
+        'Carbon\\' => 
         array (
-            'UpdateHelper\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/kylekatarnls/update-helper/src',
-            ),
+            0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
         ),
-    );
-
-    public static $classMap = array (
-        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
@@ -112,9 +107,6 @@ class ComposerStaticInitfe6a925d57ee55704de52ee2267a0a7a
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitfe6a925d57ee55704de52ee2267a0a7a::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitfe6a925d57ee55704de52ee2267a0a7a::$prefixDirsPsr4;
-            $loader->fallbackDirsPsr4 = ComposerStaticInitfe6a925d57ee55704de52ee2267a0a7a::$fallbackDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitfe6a925d57ee55704de52ee2267a0a7a::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitfe6a925d57ee55704de52ee2267a0a7a::$classMap;
 
         }, null, ClassLoader::class);
     }
