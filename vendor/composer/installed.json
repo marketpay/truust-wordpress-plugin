@@ -410,11 +410,7 @@
             "container-interface",
             "container-interop",
             "psr"
-        ],
-        "support": {
-            "issues": "https://github.com/php-fig/container/issues",
-            "source": "https://github.com/php-fig/container/tree/master"
-        }
+        ]
     },
     {
         "name": "psr/simple-cache",
@@ -464,10 +460,7 @@
             "psr",
             "psr-16",
             "simple-cache"
-        ],
-        "support": {
-            "source": "https://github.com/php-fig/simple-cache/tree/master"
-        }
+        ]
     },
     {
         "name": "symfony/polyfill-mbstring",
@@ -501,7 +494,7 @@
                 "url": "https://github.com/symfony/polyfill"
             }
         },
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-4": {
                 "Symfony\\Polyfill\\Mbstring\\": ""
