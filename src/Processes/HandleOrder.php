@@ -92,7 +92,7 @@ class InitiateShipping extends AbstractProcessStep {
 			'destination_country' => $order->get_billing_country(),
 		]);
 
-		if ($response['data'] && $response['data']['status'] == 'CARRIER_READY') {
+		if (isset($response['data']) && $response['data']['status'] == 'CARRIER_READY') {
 			return parent::process($response['data']);
 		}
 
