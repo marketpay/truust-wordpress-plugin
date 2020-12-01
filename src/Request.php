@@ -55,7 +55,7 @@ class Request
 				'seller_id' => $seller_id,
 				'name' => mb_strimwidth($name, 0, 120),
 				'value' => $order->get_total(),
-				'tag' => $order->get_id(),
+				'tag' => $order->get_order_number(),
 				'seller_confirmed_url' => truust('gateway')->settings['seller_confirmed_url'],
 				'seller_denied_url' => truust('gateway')->settings['seller_denied_url'],
 				'buyer_confirmed_url' => html_entity_decode(truust('gateway')->get_return_url($order)),
