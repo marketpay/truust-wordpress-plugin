@@ -193,11 +193,11 @@ final class Truust extends Container
 		
 		foreach ($order->get_items() as $item)
 		{
-		    $product = wc_get_product($item->get_product_id());
-		    $items [] = [
-		        'sku' => $product->get_sku(),
-                'quantity' => $item->get_quantity()
-            ];
+			$product = wc_get_product($item->get_product_id());
+			$items [] = [
+				'sku' => $product->get_sku(),
+				'quantity' => $item->get_quantity()
+			];
 		}
 
 		$curl = curl_init();
@@ -226,7 +226,7 @@ final class Truust extends Container
 				'destination_zip_code' => $order->get_billing_postcode(),
 				'destination_country' => $order->get_billing_country(),
 				'reference_data' => json_encode([ 'items' => $items]),
-                ],
+			],
 			CURLOPT_HTTPHEADER => [
 				'Accept: application/json',
 				'Authorization: Bearer ' . $api_key,
