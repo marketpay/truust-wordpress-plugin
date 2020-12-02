@@ -189,17 +189,16 @@ final class Truust extends Container
 		$api_key = truust('gateway')->settings['api_key'];
 		$url = api_base_url($api_key) . '/2.0/shippings';
 		$settings = truust('gateway')->settings;
-        $items = [];
-
-        foreach ($order->get_items() as $item)
-        {
-            $product = wc_get_product($item->get_product_id());
-
-            $items [] = [
-                'sku' => $product->get_sku(),
+		$items = [];
+		
+		foreach ($order->get_items() as $item)
+		{
+		    $product = wc_get_product($item->get_product_id());
+		    $items [] = [
+		        'sku' => $product->get_sku(),
                 'quantity' => $item->get_quantity()
             ];
-        }
+		}
 
 		$curl = curl_init();
 
@@ -226,8 +225,8 @@ final class Truust extends Container
 				'destination_state' => $order->get_billing_state(),
 				'destination_zip_code' => $order->get_billing_postcode(),
 				'destination_country' => $order->get_billing_country(),
-                'reference_data' => json_encode([ 'items' => $items]),
-			],
+				'reference_data' => json_encode([ 'items' => $items]),
+                ],
 			CURLOPT_HTTPHEADER => [
 				'Accept: application/json',
 				'Authorization: Bearer ' . $api_key,
