@@ -119,10 +119,12 @@ final class Truust extends Container
 
 		// handle payment succeeded
 		if (isset($_GET['key']) && is_wc_endpoint_url( 'order-received' )) {
-			$order = new \WC_Order(wc_get_order_id_by_order_key($_GET['key']));
+			$order_id = wc_get_order_id_by_order_key($_GET['key']);
+			$order = new \WC_Order($order_id);
 
 			if ($order) {
 				$order->payment_complete();
+				$this->accept_order($order_id);
 			}
 		}
 	}
@@ -138,7 +140,7 @@ final class Truust extends Container
 
 	public function truust_order_status_completed($order_id)
 	{
-		if (truust('gateway')->valid_key && truust('gateway')->allow_shipping) {
+		if (truust('gateway')->valid_key) {
 			$this->accept_order($order_id);
 		}
 	}
@@ -174,7 +176,13 @@ final class Truust extends Container
 		curl_close($curl);
 
 		if ($response['data'] && $response['data']['status'] == 'ACCEPTED') {
-			$this->initiate_shipping($order_id);
+			if (truust('gateway')->allow_shipping) {
+				$this->initiate_shipping($order_id);
+			} else {
+				$message = __('Order accepted', config('text-domain'));
+
+				add_flash_notice($message, 'info', true);
+			}
 		} else {
 			$error = __('There has been an error accepting this order. Please contact us at: <a href="mailto:' . config('email') . '">' . config('email') . '</a>', config('text-domain'));
 
