@@ -650,12 +650,11 @@ if (!function_exists('prefix')) {
 
 		return (!$prefix_list[$code]) ? $code : $prefix_list[$code];
 	}
-
-	if (!function_exists('phone_prefix')) {
-	    function phone_prefix($code)
-        {
-            if (empty($code)) return null;
-            return '+'.prefix(strtoupper($code));
-        }
-    }
+}
+if (!function_exists('phone_prefix')) {
+	function phone_prefix($code)
+	{
+		if (empty($code)) return null;
+		return '+'.prefix(strtoupper($code));
+	}
 }

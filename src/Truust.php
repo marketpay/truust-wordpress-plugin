@@ -229,7 +229,7 @@ final class Truust extends Container
 				'origin_country' => 'ES', //DISABLED DUE BUG $settings['origin_country'],
 				'destination_name' => $order->get_billing_first_name() . ' ' . $order->get_billing_last_name(),
 				'destination_line1' => $order->get_billing_address_1(),
-                'destination_line2' => $order->get_billing_address_2(),
+				'destination_line2' => $order->get_billing_address_2(),
 				'destination_city' => $order->get_billing_city(),
 				'destination_state' => $order->get_billing_state(),
 				'destination_zip_code' => $order->get_billing_postcode(),

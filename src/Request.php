@@ -34,10 +34,10 @@ class Request
 
 		$seller_id = $this->create_customer(truust('gateway')->settings['email']);
 		$buyer_id = $this->create_customer(
-		    $order->billing_email,
-            phone_prefix($order->get_billing_country()),
-            $order->get_billing_phone()
-        );
+			$order->billing_email,
+			phone_prefix($order->get_billing_country()),
+			$order->get_billing_phone()
+		);
 
 		if (!$seller_id || !$buyer_id) {
 			return false;
@@ -142,8 +142,8 @@ class Request
 
 			if (! is_null($prefix))
 			{
-			    $post_fields['prefix'] = $prefix;
-			    $post_fields['phone'] = $phone;
+				$post_fields['prefix'] = $prefix;
+				$post_fields['phone'] = $phone;
 			}
 
 			curl_setopt_array($curl, array(
