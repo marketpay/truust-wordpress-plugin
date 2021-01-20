@@ -33,7 +33,11 @@ class Request
 		}
 
 		$seller_id = $this->create_customer(truust('gateway')->settings['email']);
-		$buyer_id = $this->create_customer($order->billing_email);
+		$buyer_id = $this->create_customer(
+			$order->billing_email,
+			phone_prefix($order->get_billing_country()),
+			$order->get_billing_phone()
+		);
 
 		if (!$seller_id || !$buyer_id) {
 			return false;
@@ -123,7 +127,7 @@ class Request
 		return false;
 	}
 
-	private function create_customer($email)
+	private function create_customer($email, $prefix = null, $phone = null)
 	{
 		global $wpdb;
 
@@ -134,6 +138,13 @@ class Request
 			return $customer->truust_customer_id;
 		} else {
 			$curl = curl_init();
+			$post_fields = ['email' => $email];
+
+			if (! is_null($prefix))
+			{
+				$post_fields['prefix'] = $prefix;
+				$post_fields['phone'] = $phone;
+			}
 
 			curl_setopt_array($curl, array(
 				CURLOPT_URL => api_base_url($this->api_key) . '/2.0/customers',
@@ -144,9 +155,7 @@ class Request
 				CURLOPT_FOLLOWLOCATION => true,
 				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 				CURLOPT_CUSTOMREQUEST => "POST",
-				CURLOPT_POSTFIELDS => [
-					'email' => $email
-				],
+				CURLOPT_POSTFIELDS => $post_fields,
 				CURLOPT_HTTPHEADER => [
 					'Accept: application/json',
 					'Authorization: Bearer ' . $this->api_key,
