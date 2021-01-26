@@ -140,7 +140,7 @@ class Request
 			$curl = curl_init();
 			$post_fields = ['email' => $email];
 
-			if (! is_null($prefix))
+			if (! is_null($prefix) && ! is_null($phone))
 			{
 				$post_fields['prefix'] = $prefix;
 				$post_fields['phone'] = $phone;
