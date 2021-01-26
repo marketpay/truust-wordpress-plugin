@@ -201,11 +201,19 @@ final class Truust extends Container
 
 		foreach ($order->get_items() as $item)
 		{
-			$product = wc_get_product($item->get_product_id());
-			$items [] = [
-				'sku' => $product->get_sku(),
-				'quantity' => $item->get_quantity()
-			];
+			$product = wc_get_product(
+				$item->get_variation_id()
+					? $item->get_variation_id()
+					: $item->get_product_id()
+			);
+
+			if ($product) {
+				$items [] = [
+					'sku' => $product->get_sku(),
+					'quantity' => $item->get_quantity()
+				];
+			}
+
 		}
 
 		$curl = curl_init();
