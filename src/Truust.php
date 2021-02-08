@@ -101,32 +101,31 @@ final class Truust extends Container
 
 	public function handle_payment_response()
 	{
-		// handle payment failed
-		if (isset($_GET['key']) && isset($_GET['status'])) {
-			$order = new \WC_Order(wc_get_order_id_by_order_key($_GET['key']));
+		$request = wc_get_request($_SERVER['REQUEST_URI']);
 
-			if ($order) {
-				switch ($_GET['status']) {
-					case 'failed':
-						wc_add_notice(__('Payment failed.', config('text-domain')), 'error');
-						$order->update_status('failed', __('Payment failed', config('text-domain')));
-						break;
-					default:
-						break;
-				}
-			}
-		}
-
-		// handle payment succeeded
 		if (isset($_GET['key']) && is_wc_endpoint_url( 'order-received' )) {
+
 			$order_id = wc_get_order_id_by_order_key($_GET['key']);
 			$order = new \WC_Order($order_id);
 
-			if ($order) {
-				$order->payment_complete();
-				$this->accept_order($order_id);
-			}
+			if (! $order) return;
+
+			$order->payment_complete();
+			$this->accept_order($order_id);
+
+		} else if ($request['status'] === 'failed')
+		{
+			if (! isset($request['key'])) return;
+
+			$order_id = wc_get_order_id_by_order_key($request['key']);
+			$order = new \WC_Order($order_id);
+
+			if (! $order) return;
+
+			wc_add_notice(__('Payment failed.', config('text-domain')), 'error');
+			$order->update_status('failed', __('Payment failed', config('text-domain')));
 		}
+
 	}
 
 	public function admin_order_truust_order_id($order)
