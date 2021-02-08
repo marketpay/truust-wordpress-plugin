@@ -658,3 +658,36 @@ if (!function_exists('phone_prefix')) {
 		return '+'.prefix(strtoupper($code));
 	}
 }
+
+if (! function_exists('wc_get_request')) {
+	function wc_get_request($string)
+	{
+		if (empty($string)) return [];
+
+		if (strpos($string, '?') !== false)
+		{
+			$parameters = explode('?', $string);
+		}
+
+		if (strpos($string, '&') !== false)
+		{
+			$parameters = explode('&', isset($parameters[1]) ? $parameters[1] : $string);
+
+		}
+
+		if (! isset($parameters)) return [];
+
+		$request = [];
+
+		foreach ($parameters as $parameter)
+		{
+			if (strpos($parameter, '=') !== false)
+			{
+				$aux = explode('=', $parameter);
+				$request[$aux[0]] = $aux[1];
+			}
+		}
+
+		return $request;
+	}
+}

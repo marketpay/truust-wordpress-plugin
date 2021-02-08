@@ -26,7 +26,7 @@ class Gateway extends \WC_Payment_Gateway
 
 		$this->init_form_fields();
 		$this->init_settings();
-		
+
 		$this->title = __(config('name'), config('text-domain'));
 		$this->description = __($this->settings['description'], config('text-domain'));
 
@@ -61,6 +61,23 @@ class Gateway extends \WC_Payment_Gateway
 		global $wpdb;
 
 		$table = $wpdb->prefix . 'truust_orders';
+		$order = $wpdb->get_row('SELECT * FROM ' . $table . ' WHERE order_id = "' . $order_id . '"');
+
+		if ($order)
+		{
+			return $wpdb->update($table,
+				[
+					'order_id' => $order_id,
+					'truust_order_id' => $truust_order_id,
+					'products_name' => $order_name,
+					'shortlink' => $buyer_link,
+				],
+				[
+					'order_id'=> $order_id
+				]
+			);
+		}
+
 		$wpdb->insert($table, [
 			'order_id' => $order_id,
 			'truust_order_id' => $truust_order_id,
@@ -68,7 +85,8 @@ class Gateway extends \WC_Payment_Gateway
 			'shortlink' => $buyer_link,
 		]);
 
-		$wpdb->insert_id;
+		return $wpdb->insert_id;
+
 	}
 
 	// ---------- validation ---------- //
@@ -115,7 +133,7 @@ class Gateway extends \WC_Payment_Gateway
 
 			$this->valid_key = false;
 			$this->allow_shipping = false;
-	
+
 			return false;
 		}
 
