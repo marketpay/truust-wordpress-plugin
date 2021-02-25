@@ -113,9 +113,9 @@ final class Truust extends Container
 			$order->payment_complete();
 			$this->accept_order($order_id);
 
-		} else if ($request['status'] === 'failed')
+		} else if (isset($request['status']) && isset($request['key']))
 		{
-			if (! isset($request['key'])) return;
+			if ($request['status'] != 'failed') return;
 
 			$order_id = wc_get_order_id_by_order_key($request['key']);
 			$order = new \WC_Order($order_id);
