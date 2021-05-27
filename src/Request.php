@@ -34,7 +34,7 @@ class Request
 
 		$seller_id = $this->create_customer(truust('gateway')->settings['email']);
 		$buyer_id = $this->create_customer(
-			$order->billing_email,
+			$order->get_billing_email(),
 			phone_prefix($order->get_billing_country()),
 			$order->get_billing_phone()
 		);
