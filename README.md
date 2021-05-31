@@ -1,5 +1,9 @@
 # woocommerce-truust-v2
 
+## Before Installation
+
+This plugin **only works with one seller per website** (e-commerce). If you want to use Truust in your marketplace or you have multiple sellers, you must manually integrate our API. Read more information at [Documentation Truust](https://docs.truust.io/).
+
 ## Installation
 
 Copy the woocommerce-truust-v2 folder containing the source code to the wp-content/plugins folder within the WordPress installation.
